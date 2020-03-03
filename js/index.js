@@ -12,20 +12,36 @@
 // let x = 5;
 // let y = fib(x);
 
-function fib(x) {
-    let b = 1;
-    let c = 0;
 
-    for (let i = 1; i < x; i++) {
-        y = b + c;
-        c = b;
-        b = y;
+
+function fib(n) {
+    let firstNum = 1;
+    let secondNum = 0;
+    let sumNum = firstNum + secondNum;
+
+
+    for (let i = 0; i < n; i++) {
+        sumNum = firstNum + secondNum;
+        firstNum = secondNum;
+        secondNum = sumNum;
     }
-    return y;
-}
-x = 8;
-console.log(fib(x));
-y - fib(x);
+    return sumNum;
 
-document.getElementById('x').innerText = x;
-document.getElementById('y').innerText = y;
+}
+
+let n;
+y = fib(n);
+
+isBtn.addEventListener("click", () => {
+    let a = number.value;
+    let b = fib(a);
+
+    document.getElementById("result").innerText = b;
+
+});
+// x = 8;
+// console.log(fib(x));
+// y - fib(x);
+
+// document.getElementById('x').innerText = x;
+// document.getElementById('y').innerText = y;

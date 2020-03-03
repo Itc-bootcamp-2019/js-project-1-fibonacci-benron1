@@ -1,0 +1,50 @@
+.newlength {
+    width:18% !important;
+}
+
+.sentence{
+    transform: translateY(7px);
+    padding-right: 20px;
+    font-family: Open Sans;
+    font-style: Regular;
+    font-size: 24px;
+    line-height: 24px;
+    line-height: 73%;
+    align-items: Left;
+    padding-left:64px;
+}
+
+.fibo{
+    font-family: Open Sans;
+    font-style: Regular;
+    font-size: 72px;
+    line-height: 79px;
+    line-height: 81%;
+    align-items: Left;
+    padding-bottom:50px;
+    padding-top:100px;
+    padding-left:64px;
+
+}
+
+.inputsec{
+    width:86px;
+    height:38px;
+    margin-right:26px;
+}
+.thebtn {
+    width: 39px;
+    height: 38px;
+    
+}
+.results{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    text-decoration-line: underline;
+    position: absolute;
+    transform: translateY(15px);
+
+}
