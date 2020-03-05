@@ -47,6 +47,7 @@ function goFetch() {
     fetch(url)
         .then(response => {
             return response.json()
+            cd
         })
         .then(data => {
             console.log(data.result)
