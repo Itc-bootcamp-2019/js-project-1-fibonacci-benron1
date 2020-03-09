@@ -113,3 +113,37 @@ line-height: 110%;
 color: #A94442;
 
 }
+
+
+.results-list{
+    margin-top: 87px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 54px;
+    line-height: 72px;
+    align-items: Left;
+    padding-left:64px;
+    margin-bottom:60px;
+    display: inline-block;
+    margin-right:6px;
+}
+
+.list-history{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left:64px;
+    list-style:none;
+    padding:0px;
+    color: #373a3c;
+
+}
+
+.red{
+    border:red 1px solid;
+    color:red;
+}
+

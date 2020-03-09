@@ -38,6 +38,11 @@
 //     document.getElementById("result").innerText = b;
 
 // });
+function goSpinner1() {
+    let spinner = document.getElementById("loader1");
+    spinner.classList.toggle("hidden");
+
+}
 function goSpinner() {
     let spinner = document.getElementById("loader");
     spinner.classList.toggle("hidden");
@@ -57,11 +62,17 @@ function goUnhidden() {
 function goUnfifty() {
     let hiddenResult1 = document.getElementById("largfifty");
     hiddenResult1.classList.remove("hidden");
+    let hiddenRed = document.getElementById("number");
+    hiddenRed.classList.add("red");
 }
 function goFifty() {
     let hiddenResult1 = document.getElementById("largfifty");
     hiddenResult1.classList.add("hidden");
+    let hiddenRed = document.getElementById("number");
+    hiddenRed.classList.remove("red")
 }
+
+const resultHistory = document.getElementById("results-history");
 // function errFunction() {
 //     const input = document.getElementById("number").value;
 //     let x = input;
@@ -80,8 +91,44 @@ function goFifty() {
 //     }
 // }
 
+displayResults()
+function displayResults() {
 
+    fetch("http://localhost:5050/getFibonacciResults")
+        .then(response => response.json())
+        .then(function fetchResult(data) {
+            console.log(data.results)
+            let history = newLibrary(data.results);
+            createList(history);
+        });
 
+    function newLibrary(array) {
+        let library = [];
+        for (let i = 0; i < array.length; i++) {
+            let date = new Date(array[i].createdDate);
+            const resultLine = [
+                "The Fibonacci Of <strong>" +
+                array[i].number +
+                "</strong> is <strong>" +
+                array[i].result +
+                "</strong>. Calculated at: " +
+                date +
+                "\n"
+            ];
+            library.push(resultLine);
+        }
+        return library;
+
+    }
+    function createList(array) {
+        resultHistory.innerHTML = ("")
+        for (i = 0; i < array.length; i++) {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = array[i] + "<hr>";
+            resultHistory.appendChild(listItem);
+        }
+    }
+}
 
 
 function goFetch() {
@@ -129,7 +176,11 @@ function goFetch() {
                 });
         }, 2000)
     }
-
+    displayResults()
+    goSpinner1();
+    setTimeout(() => {
+        goSpinner1();
+    }, 2000)
 }
 document.getElementById('isBtn').addEventListener("click", goFetch)
 
