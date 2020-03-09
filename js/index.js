@@ -38,24 +38,101 @@
 //     document.getElementById("result").innerText = b;
 
 // });
+function goSpinner() {
+    let spinner = document.getElementById("loader");
+    spinner.classList.toggle("hidden");
+
+}
+function goHidden() {
+    let hiddenResult = document.getElementById("result");
+    hiddenResult.classList.add("hidden");
+
+
+}
+function goUnhidden() {
+    let hiddenResult = document.getElementById("result");
+    hiddenResult.classList.remove("hidden");
+
+}
+function goUnfifty() {
+    let hiddenResult1 = document.getElementById("largfifty");
+    hiddenResult1.classList.remove("hidden");
+}
+function goFifty() {
+    let hiddenResult1 = document.getElementById("largfifty");
+    hiddenResult1.classList.add("hidden");
+}
+// function errFunction() {
+//     const input = document.getElementById("number").value;
+//     let x = input;
+
+
+//     try {
+//         if (x === 42) throw "Server Error: 42 is the meaning of life";
+//         if (x > 50) throw "Cant be larger than 50";
+
+//     }
+//     catch (err) {
+//         document.getElementById("result").value = err;
+//     }
+//     finally {
+//         document.getElementById("result").value = "";
+//     }
+// }
+
+
+
+
 
 function goFetch() {
+    document.getElementById('fortytwo').innerText = "";
+    goFifty();
+    goHidden();
+    goSpinner();
 
     let number = document.getElementById('number').value;
-    const url = 'http://localhost:5050/fibonacci/' + number;
-    console.log(url);
-    fetch(url)
-        .then(response => {
-            return response.json()
-            cd
-        })
-        .then(data => {
-            console.log(data.result)
-            document.getElementById('result').innerText = data.result;
-        });
-}
+    if (number > 50) {
+        let test = document.getElementById('fiftytxt');
+        test.innerText = "Cant be larger than 50";
+        goUnfifty();
+        goSpinner();
+    }
+    else {
+        const url = 'http://localhost:5050/fibonacci/' + number;
+        console.log(url);
 
+        setTimeout(() => {
+            fetch(url)
+                .then(response => {
+                    if (response.status === 400) {
+                        return response.text();
+                    }
+
+                    else {
+                        return response.json()
+
+                    }
+                })
+                .then(data => {
+                    if (typeof data === "object") {
+                        console.log(data.result)
+                        document.getElementById('result').innerText = data.result;
+                        goSpinner();
+                        goUnhidden()
+                    }
+                    else {
+                        document.getElementById("fortytwo").innerText = "Server Error: " + data;
+                        goSpinner();
+
+
+                    }
+                });
+        }, 2000)
+    }
+
+}
 document.getElementById('isBtn').addEventListener("click", goFetch)
+
 
 
 

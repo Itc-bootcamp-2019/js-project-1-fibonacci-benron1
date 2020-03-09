@@ -48,3 +48,68 @@
     transform: translateY(15px);
 
 }
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+    border-left: 4px solid black;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+   @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .hidden{
+      display: none;
+      
+  }
+
+  .fortytwo{
+    width: 277px;
+    height: 24px;
+    left: 525px;
+    top: 236px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #D9534F;
+    
+}
+
+.largfifty{
+    position: relative;
+    width: 180px;
+    height: auto;
+    background: #F2DEDE;
+    border: 1px solid #EBCCCC;
+    border-radius: 4px;
+    left:170px;
+    margin-top:15px;
+    vertical-align: middle;
+    align-items: center;
+    text-align: left;
+}
+
+.fiftytxt{
+font-family: Open Sans;
+font-style: Regular;
+font-size: 16px;
+line-height: 24px;
+line-height: 110%;
+color: #A94442;
+
+}
