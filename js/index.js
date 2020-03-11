@@ -1,3 +1,29 @@
+// function fib(n) {
+//     let firstNum = 1;
+//     let secondNum = 0;
+//     let sumNum = firstNum + secondNum;
+
+
+//     for (let i = 0; i < n; i++) {
+//         sumNum = firstNum + secondNum;
+//         firstNum = secondNum;
+//         secondNum = sumNum;
+//     }
+//     return sumNum;
+
+// }
+// let n;
+// y = fib(n);
+
+// isBtn.addEventListener("click", () => {
+//     let a = number.value;
+//     let b = fib(a);
+//     goSpinner();
+//     goUnhidden();
+
+//     document.getElementById("result").innerText = b;
+
+// });
 
 
 // function fib(n) {
@@ -13,31 +39,23 @@
 // let y = fib(x);
 
 
-
-// function fib(n) {
-//     let firstNum = 1;
-//     let secondNum = 0;
-//     let sumNum = firstNum + secondNum;
+// function errFunction() {
+//     const input = document.getElementById("number").value;
+//     let x = input;
 
 
-//     for (let i = 0; i < n; i++) {
-//         sumNum = firstNum + secondNum;
-//         firstNum = secondNum;
-//         secondNum = sumNum;
+//     try {
+//         if (x === 42) throw "Server Error: 42 is the meaning of life";
+//         if (x > 50) throw "Cant be larger than 50";
+
 //     }
-//     return sumNum;
-
-// // }
-// let n;
-// y = fib(n);
-
-// isBtn.addEventListener("click", () => {
-//     let a = number.value;
-//     let b = fib(a);
-
-//     document.getElementById("result").innerText = b;
-
-// });
+//     catch (err) {
+//         document.getElementById("result").value = err;
+//     }
+//     finally {
+//         document.getElementById("result").value = "";
+//     }
+// }
 function goSpinner1() {
     let spinner = document.getElementById("loader1");
     spinner.classList.toggle("hidden");
@@ -73,23 +91,40 @@ function goFifty() {
 }
 
 const resultHistory = document.getElementById("results-history");
-// function errFunction() {
-//     const input = document.getElementById("number").value;
-//     let x = input;
+
+let chkBox = document.getElementById("chkBox").checked;
+
+function ifChecked() {
+    setTimeout(() => {
+        function fib(n) {
+            let firstNum = 1;
+            let secondNum = 0;
+            let sumNum = firstNum + secondNum;
 
 
-//     try {
-//         if (x === 42) throw "Server Error: 42 is the meaning of life";
-//         if (x > 50) throw "Cant be larger than 50";
+            for (let i = 0; i < n; i++) {
+                sumNum = firstNum + secondNum;
+                firstNum = secondNum;
+                secondNum = sumNum;
+            }
+            return sumNum;
 
-//     }
-//     catch (err) {
-//         document.getElementById("result").value = err;
-//     }
-//     finally {
-//         document.getElementById("result").value = "";
-//     }
-// }
+        }
+        let n;
+        y = fib(n);
+
+
+        let a = number.value;
+        let b = fib(a);
+        goSpinner();
+        goUnhidden();
+
+        document.getElementById("result").innerText = b;
+
+
+    }, 2000)
+}
+
 
 displayResults()
 function displayResults() {
@@ -132,55 +167,64 @@ function displayResults() {
 
 
 function goFetch() {
+    let chkBox = document.getElementById("chkBox").checked;
     document.getElementById('fortytwo').innerText = "";
     goFifty();
     goHidden();
     goSpinner();
-
-    let number = document.getElementById('number').value;
-    if (number > 50) {
-        let test = document.getElementById('fiftytxt');
-        test.innerText = "Cant be larger than 50";
-        goUnfifty();
-        goSpinner();
+    console.log(chkBox)
+    if (chkBox === false) {
+        ifChecked()
     }
+
     else {
-        const url = 'http://localhost:5050/fibonacci/' + number;
-        console.log(url);
+        console.log("hey there")
 
+        let number = document.getElementById('number').value;
+        if (number > 50) {
+            let test = document.getElementById('fiftytxt');
+            test.innerText = "Cant be larger than 50";
+            goUnfifty();
+            goSpinner();
+        }
+        else {
+            const url = 'http://localhost:5050/fibonacci/' + number;
+            console.log(url);
+
+            setTimeout(() => {
+                fetch(url)
+                    .then(response => {
+                        if (response.status === 400) {
+                            return response.text();
+                        }
+
+                        else {
+                            return response.json()
+
+                        }
+                    })
+                    .then(data => {
+                        if (typeof data === "object") {
+                            console.log(data.result)
+                            document.getElementById('result').innerText = data.result;
+                            goSpinner();
+                            goUnhidden()
+                        }
+                        else {
+                            document.getElementById("fortytwo").innerText = "Server Error: " + data;
+                            goSpinner();
+
+
+                        }
+                    });
+            }, 2000)
+        }
+        displayResults()
+        goSpinner1();
         setTimeout(() => {
-            fetch(url)
-                .then(response => {
-                    if (response.status === 400) {
-                        return response.text();
-                    }
-
-                    else {
-                        return response.json()
-
-                    }
-                })
-                .then(data => {
-                    if (typeof data === "object") {
-                        console.log(data.result)
-                        document.getElementById('result').innerText = data.result;
-                        goSpinner();
-                        goUnhidden()
-                    }
-                    else {
-                        document.getElementById("fortytwo").innerText = "Server Error: " + data;
-                        goSpinner();
-
-
-                    }
-                });
+            goSpinner1();
         }, 2000)
     }
-    displayResults()
-    goSpinner1();
-    setTimeout(() => {
-        goSpinner1();
-    }, 2000)
 }
 document.getElementById('isBtn').addEventListener("click", goFetch)
 
