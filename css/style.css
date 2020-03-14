@@ -24,7 +24,6 @@
     padding-bottom:50px;
     padding-top:100px;
     padding-left:64px;
-
 }
 
 .inputsec{
@@ -32,11 +31,12 @@
     height:38px;
     margin-right:26px;
 }
+
 .thebtn {
     width: 39px;
     height: 38px;
-    
 }
+
 .results{
     font-family: Open Sans;
     font-style: normal;
@@ -46,8 +46,8 @@
     text-decoration-line: underline;
     position: absolute;
     transform: translateY(15px);
-
 }
+
 .spinner {
     border: 4px solid #f3f3f3;
     border-radius: 50%;
@@ -61,8 +61,7 @@
     display: inline-block;
     vertical-align: middle;
   }
-  
-   @keyframes spin {
+    @keyframes spin {
     0% {
       transform: rotate(0deg);
     }
@@ -71,10 +70,9 @@
     }
   }
 
-  .hidden{
+.hidden{
       display: none;
-      
-  }
+}
 
   .fortytwo{
     width: 277px;
@@ -97,7 +95,7 @@
     background: #F2DEDE;
     border: 1px solid #EBCCCC;
     border-radius: 4px;
-    left:170px;
+    left:150px;
     margin-top:15px;
     vertical-align: middle;
     align-items: center;
@@ -139,6 +137,10 @@ color: #A94442;
     list-style:none;
     padding:0px;
     color: #373a3c;
+    margin-bottom:24px;
+    border-bottom: 1px solid black;
+    padding-bottom: 18px;
+    width:85%;
 
 }
 

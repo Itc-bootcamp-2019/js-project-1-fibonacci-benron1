@@ -1,61 +1,3 @@
-// function fib(n) {
-//     let firstNum = 1;
-//     let secondNum = 0;
-//     let sumNum = firstNum + secondNum;
-
-
-//     for (let i = 0; i < n; i++) {
-//         sumNum = firstNum + secondNum;
-//         firstNum = secondNum;
-//         secondNum = sumNum;
-//     }
-//     return sumNum;
-
-// }
-// let n;
-// y = fib(n);
-
-// isBtn.addEventListener("click", () => {
-//     let a = number.value;
-//     let b = fib(a);
-//     goSpinner();
-//     goUnhidden();
-
-//     document.getElementById("result").innerText = b;
-
-// });
-
-
-// function fib(n) {
-//     let numberList = [0, 1];
-//     for (let i = 2; i < n + 1; i++) {
-//         numberList.push(numberList[i - 2] + numberList[i - 1])
-//     }
-//     return numberList[n]
-// }
-
-
-// let x = 5;
-// let y = fib(x);
-
-
-// function errFunction() {
-//     const input = document.getElementById("number").value;
-//     let x = input;
-
-
-//     try {
-//         if (x === 42) throw "Server Error: 42 is the meaning of life";
-//         if (x > 50) throw "Cant be larger than 50";
-
-//     }
-//     catch (err) {
-//         document.getElementById("result").value = err;
-//     }
-//     finally {
-//         document.getElementById("result").value = "";
-//     }
-// }
 function goSpinner1() {
     let spinner = document.getElementById("loader1");
     spinner.classList.toggle("hidden");
@@ -64,18 +6,14 @@ function goSpinner1() {
 function goSpinner() {
     let spinner = document.getElementById("loader");
     spinner.classList.toggle("hidden");
-
 }
 function goHidden() {
     let hiddenResult = document.getElementById("result");
     hiddenResult.classList.add("hidden");
-
-
 }
 function goUnhidden() {
     let hiddenResult = document.getElementById("result");
     hiddenResult.classList.remove("hidden");
-
 }
 function goUnfifty() {
     let hiddenResult1 = document.getElementById("largfifty");
@@ -89,30 +27,33 @@ function goFifty() {
     let hiddenRed = document.getElementById("number");
     hiddenRed.classList.remove("red")
 }
-
-const resultHistory = document.getElementById("results-history");
+const resultHistory = document.getElementById("resultsBox");
 
 let chkBox = document.getElementById("chkBox").checked;
 
 function ifChecked() {
     setTimeout(() => {
         function fib(n) {
-            let firstNum = 1;
-            let secondNum = 0;
-            let sumNum = firstNum + secondNum;
-
-
-            for (let i = 0; i < n; i++) {
-                sumNum = firstNum + secondNum;
-                firstNum = secondNum;
-                secondNum = sumNum;
+            if (n === "0" || n === "1") {
+                console.log(n);
+                return n;
             }
-            return sumNum;
+            else {
+                let firstNum = 1;
+                let secondNum = 0;
+                let sumNum = firstNum + secondNum;
+
+                for (let i = 0; i < n; i++) {
+                    sumNum = firstNum + secondNum;
+                    firstNum = secondNum;
+                    secondNum = sumNum;
+                }
+                return sumNum;
+            }
 
         }
         let n;
         y = fib(n);
-
 
         let a = number.value;
         let b = fib(a);
@@ -121,51 +62,41 @@ function ifChecked() {
 
         document.getElementById("result").innerText = b;
 
-
     }, 2000)
 }
 
-
 displayResults()
 function displayResults() {
-
+    resultHistory.innerHTML = ("");
     fetch("http://localhost:5050/getFibonacciResults")
         .then(response => response.json())
         .then(function fetchResult(data) {
             console.log(data.results)
-            let history = newLibrary(data.results);
-            createList(history);
+            newResults(data.results);
+
         });
+    function newResults(listOfResults) {
+        for (let i = 0; i < listOfResults.length; i++) {
+            const resultsWrapper = document.createElement("div");
+            resultsWrapper.classList.add("list-history");
 
-    function newLibrary(array) {
-        let library = [];
-        for (let i = 0; i < array.length; i++) {
-            let date = new Date(array[i].createdDate);
-            const resultLine = [
-                "The Fibonacci Of <strong>" +
-                array[i].number +
-                "</strong> is <strong>" +
-                array[i].result +
-                "</strong>. Calculated at: " +
-                date +
-                "\n"
-            ];
-            library.push(resultLine);
-        }
-        return library;
+            const listNumber = document.createElement("span");
+            listNumber.innerHTML = "Fibonacci of ";
+            const boldNumber = document.createElement("strong");
+            boldNumber.innerHTML = listOfResults[i].number;
+            listNumber.append(boldNumber);
+            listNumber.innerHTML += " is ";
+            const boldResult = document.createElement("strong");
+            boldResult.innerHTML = listOfResults[i].result;
+            listNumber.append(boldResult);
+            listNumber.innerHTML +=
+                ". Calculated at: " + new Date(listOfResults[i].createdDate);
 
-    }
-    function createList(array) {
-        resultHistory.innerHTML = ("")
-        for (i = 0; i < array.length; i++) {
-            const listItem = document.createElement("li");
-            listItem.innerHTML = array[i] + "<hr>";
-            resultHistory.appendChild(listItem);
+            resultsWrapper.append(listNumber);
+            resultHistory.append(resultsWrapper);
         }
     }
 }
-
-
 function goFetch() {
     let chkBox = document.getElementById("chkBox").checked;
     document.getElementById('fortytwo').innerText = "";
@@ -227,16 +158,3 @@ function goFetch() {
     }
 }
 document.getElementById('isBtn').addEventListener("click", goFetch)
-
-
-
-
-
-
-
-// x = 8;
-// console.log(fib(x));
-// y - fib(x);
-
-// document.getElementById('x').innerText = x;
-// document.getElementById('y').innerText = y;
